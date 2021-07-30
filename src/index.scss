@@ -1,0 +1,10 @@
+// Wipe defaults
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// Fullscreen application
+html, body, #root, #root>div {
+  height: 100%;
+}
