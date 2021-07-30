@@ -9,23 +9,30 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       files: [],
-      openedFile: null,
+      // openedFile: null,
     };
-    this.getFileNameArr = this.getFileNameArr.bind(this);
+    this.getFilenames = this.getFilenames.bind(this);
+    this.clearFiles = this.clearFiles.bind(this);
     this.addFile = this.addFile.bind(this);
     this.removeFile = this.removeFile.bind(this);
     this.openFile = this.openFile.bind(this);
   }
 
-  getFileNameArr() {
+  getFilenames() {
     return this.state.files.map((file) => file.name);
+  }
+
+  clearFiles() {
+    this.setState({
+      files: [],
+    });
   }
 
   addFile(file) {
     this.setState((prevState) => {
       return {
         files: [...prevState.files, file],
-        openedFile: file, // TEMPORARY
+        // openedFile: [...prevState.files, file][0], // TEMPORARY
       };
     });
   }
@@ -41,16 +48,15 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log("App.jsx render called. The state now is:");
-    console.log(this.state);
     return (
       <div className="app">
         <Sidebar
-          fileNameArr={this.getFileNameArr()}
+          filenames={this.getFilenames()}
           addFile={this.addFile}
+          clearFiles={this.clearFiles}
           removeFile={this.removeFile}
         />
-        <Viewer openedFile={this.state.openedFile} />
+        <Viewer images={this.state.files} />
       </div>
     );
   }

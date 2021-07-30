@@ -5,36 +5,58 @@ import "./Viewer.scss";
 export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
-    this.getImgElemArr = this.getImgElemArr.bind(this);
+    this.state = {
+      imageUrls: [],
+    };
+    this.revokeImageUrls = this.revokeImageUrls.bind(this);
+    this.getImageUrls = this.getImageUrls.bind(this);
+    this.getImageElems = this.getImageElems.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.openedFile !== prevProps.openedFile) {
-      this.forceUpdate();
+    if (this.props.images !== prevProps.images) {
+      this.revokeImageUrls(); // Clean up previous urls
+      this.getImageUrls();
     }
+  }
+
+  revokeImageUrls() {
+    for (let imageUrl of this.state.imageUrls) {
+      URL.revokeObjectURL(imageUrl);
+    }
+  }
+
+  getImageUrls() {
+    let imageUrls = [];
+    for (let image of this.props.images) {
+      imageUrls.push(URL.createObjectURL(image));
+    }
+    this.setState({
+      imageUrls: imageUrls,
+    });
   }
 
   /**
-   * Processes images, extracts their URLs, and returns them as an array of <img>
+   * Creates and returns an array of <img> files with src attributes linked
    * @returns Array of <img>
    */
-  getImgElemArr() {
-    let imgElemArr = [];
-    if (this.props.openedFile) {
-      let imgSrcArr = [URL.createObjectURL(this.props.openedFile)];
-      for (let i = 0; i < imgSrcArr.length; i++) {
-        let imgSrc = imgSrcArr[i];
-        imgElemArr.push(<img src={imgSrc} key={i} />);
-      }
+  getImageElems() {
+    let imageElemArr = [];
+    for (let i = 0; i < this.state.imageUrls.length; i++) {
+      let imageUrl = this.state.imageUrls[i];
+      imageElemArr.push(<img src={imageUrl} key={`image-${i}`} />);
     }
-    return imgElemArr;
+    return imageElemArr;
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
   }
 
   render() {
-    console.log("viewer render called");
     return (
       <div className="viewer">
-        <div className="viewer-img-wrapper">{this.getImgElemArr()}</div>
+        <div className="viewer-img-wrapper">{this.getImageElems()}</div>
       </div>
     );
   }
