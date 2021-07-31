@@ -1,5 +1,5 @@
 import React from "react";
-const zip = require("@zip.js/zip.js");
+const jszip = require("jszip");
 
 import "./Viewer.scss";
 
@@ -7,69 +7,85 @@ export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageUrls: [],
+      imageUrls: [], // The image URLs directly used in <img> tags
     };
-    this.revokeImageUrls = this.revokeImageUrls.bind(this);
-    this.getImageUrls = this.getImageUrls.bind(this);
+    this.revokeUrls = this.revokeUrls.bind(this);
+    this.createUrls = this.createUrls.bind(this);
     this.getImageElems = this.getImageElems.bind(this);
+    this.processFile = this.processFile.bind(this);
+    this.unzip = this.unzip.bind(this);
+  }
+
+  componentDidMount() {
+    this.processFile(this.props.viewedFile);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.viewerFile !== prevProps.viewerFile) {
-      this.revokeImageUrls();
-      this.setState({
-        imageUrls: [URL.createObjectURL(this.props.viewerFile)], // Temporarily just a 1-element array
+      this.revokeUrls(this.state.imageUrls);
+      this.processFile();
+    }
+  }
+
+  /**
+   * Processes the file for viewing
+   * Unzips the file, creates URLs for all entries, and sets the URLs into state
+   * Since this method calls setState, this is effectively the "updater" function
+   * @param {File} file The file to process for viewing
+   */
+  processFile(file) {
+    if (this.props.viewerFile) {
+      this.unzip(this.props.viewerFile).then((blobs) => {
+        let urls = this.createUrls(blobs);
+        this.setState({
+          imageUrls: urls,
+        });
       });
     }
-
-    /*
-    if (this.props.images !== prevProps.images) {
-      this.revokeImageUrls(); // Clean up previous urls
-      this.getImageUrls();
-    }
-    */
   }
 
-  async unzip() {
-    // create a BlobReader to read with a ZipReader the zip from a Blob object
-    const reader = new zip.ZipReader(new zip.BlobReader(this.props.viewerFile));
+  /**
+   * Returns an array of Promises of Blobs of each zip entry
+   * @param {File} zipFile The ZIP file to unzip
+   * @returns {Promise} Promise of array of Blobs
+   */
+  unzip(zipFile) {
+    return jszip.loadAsync(zipFile).then(function (zip) {
+      let re = /(.jpg|.png|.gif|.ps|.jpeg)$/;
+      let imageFilenames = Object.keys(zip.files).filter(function (filename) {
+        // Ignore non-image files
+        return re.test(filename.toLowerCase());
+      });
 
-    // get all entries from the zip
-    const entries = await reader.getEntries();
-    if (entries.length) {
-      // get first entry content as text by using a TextWriter
-      const text = await entries[0].getData(
-        // writer
-        new zip.TextWriter(),
-        // options
-        {
-          onprogress: (index, max) => {
-            // onprogress callback
-          },
-        }
-      );
-      // text contains the entry data as a String
-      console.log(text);
-    }
-
-    // close the ZipReader
-    await reader.close();
-  }
-
-  revokeImageUrls() {
-    for (let imageUrl of this.state.imageUrls) {
-      URL.revokeObjectURL(imageUrl);
-    }
-  }
-
-  getImageUrls() {
-    let imageUrls = [];
-    for (let image of this.props.images) {
-      imageUrls.push(URL.createObjectURL(image));
-    }
-    this.setState({
-      imageUrls: imageUrls,
+      let blobPromises = [];
+      for (let filename of imageFilenames) {
+        let file = zip.files[filename];
+        blobPromises.push(file.async("blob"));
+      }
+      return Promise.all(blobPromises);
     });
+  }
+
+  /**
+   * Returns an array of object URLs for passed array of files
+   * @param {File[]} files Array of files to create object URLs for
+   */
+  createUrls(files) {
+    let urls = [];
+    for (let file of files) {
+      urls.push(URL.createObjectURL(file));
+    }
+    return urls;
+  }
+
+  /**
+   * Revokes all URLs in the passed array, freeing memory
+   * @param {DOMString[]} urls Array of DOMString URLs (of images, in this case)
+   */
+  revokeUrls(urls) {
+    for (let url of urls) {
+      URL.revokeObjectURL(url);
+    }
   }
 
   /**
