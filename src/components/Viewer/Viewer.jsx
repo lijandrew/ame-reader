@@ -17,29 +17,41 @@ export default class Viewer extends React.Component {
   }
 
   componentDidMount() {
-    this.processFile(this.props.viewedFile);
+    this.revokeUrls(this.state.imageUrls);
+    this.processFile(this.props.viewerFile);
   }
 
   componentDidUpdate(prevProps) {
+    console.log("update");
+    console.log(this.props.viewerFile);
+    console.log(prevProps.viewerFile);
     if (this.props.viewerFile !== prevProps.viewerFile) {
+      console.log("update if");
       this.revokeUrls(this.state.imageUrls);
-      this.processFile();
+      this.processFile(this.props.viewerFile);
     }
   }
 
   /**
-   * Processes the file for viewing
+   * Processes the file for viewing and sets the state accordingly
    * Unzips the file, creates URLs for all entries, and sets the URLs into state
-   * Since this method calls setState, this is effectively the "updater" function
+   * If file is falsy, will revoke all URLs and wipe this.state.imageUrls to force
+   * a rerender of the welcome screen.
    * @param {File} file The file to process for viewing
    */
   processFile(file) {
-    if (this.props.viewerFile) {
+    console.log(file);
+    if (file) {
       this.unzip(this.props.viewerFile).then((blobs) => {
         let urls = this.createUrls(blobs);
         this.setState({
           imageUrls: urls,
         });
+      });
+    } else {
+      this.revokeUrls(this.state.imageUrls);
+      this.setState({
+        imageUrls: [],
       });
     }
   }

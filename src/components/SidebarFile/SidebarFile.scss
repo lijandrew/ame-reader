@@ -2,4 +2,16 @@
   padding: 10px;
   background-color: white;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.SidebarFile-delete {
+  cursor: pointer;
+  &:hover {
+    // Placeholder animation
+    transform: rotate(90deg);
+    transition: transform 100ms linear;
+  }
 }

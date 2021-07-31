@@ -19,8 +19,13 @@ export default class App extends React.Component {
    * @param {File} file The file to display in Viewer
    */
   setViewerFile(file) {
+    console.log("setViewerFile called with: ");
+    console.log(file);
     this.setState({
       viewerFile: file,
+    }, () => {
+      console.log("state now");
+      console.log(this.state);
     });
   }
 

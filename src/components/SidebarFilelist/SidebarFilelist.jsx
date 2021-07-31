@@ -12,6 +12,7 @@ export default class SidebarFilelist extends React.Component {
     };
     this.getFileElems = this.getFileElems.bind(this);
     this.addFiles = this.addFiles.bind(this);
+    this.deleteFile = this.deleteFile.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -26,9 +27,23 @@ export default class SidebarFilelist extends React.Component {
    * @param {File[]} files Array of Files to be added to state variable
    */
   addFiles(files) {
-    this.setState((prevState) => ({
-      files: [...prevState.files, ...files],
+    this.setState((state) => ({
+      files: [...state.files, ...files],
     }));
+  }
+
+  /**
+   * Deletes passed File from the file list
+   * @param {File} file File to be deleted from file list
+   */
+  deleteFile(file) {
+    this.setState((state) => {
+      let filesCopy = [...state.files];
+      filesCopy.splice(filesCopy.indexOf(file), 1);
+      return {
+        files: filesCopy,
+      };
+    });
   }
 
   getFileElems() {
@@ -38,6 +53,7 @@ export default class SidebarFilelist extends React.Component {
         <SidebarFile
           file={this.state.files[i]}
           setViewerFile={this.props.setViewerFile}
+          deleteFile={this.deleteFile}
           key={`file-${i}`}
         />
       );
