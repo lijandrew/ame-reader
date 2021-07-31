@@ -1,51 +1,36 @@
 import React from "react";
+import SidebarFilelist from "../SidebarFilelist/SidebarFilelist";
+import SidebarUploader from "../SidebarUploader/SidebarUploader";
 
 import "./Sidebar.scss";
 
 export default class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-    this.onFileInputChange = this.onFileInputChange.bind(this);
-    this.getFileNameElemArr = this.getFileNameElems.bind(this);
+    this.state = {
+      newFiles: [], // Purely for SidebarUploader to send new files to SidebarFilelist
+    };
+    this.setNewFiles = this.setNewFiles.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.fileNameArr !== prevProps.fileNameArr) {
-      this.forceUpdate();
-    }
-  }
-
-  onFileInputChange(event) {
-    if (event.target.files && event.target.files[0]) {
-      this.props.clearFiles();
-      for (let file of event.target.files) {
-        this.props.addFile(file);
-      }
-    }
-  }
-
-  getFileNameElems() {
-    let fileNameElemArr = [];
-    for (let i = 0; i < this.props.filenames.length; i++) {
-      let fileName = this.props.filenames[i];
-      fileNameElemArr.push(<div key={`filename-${i}`}>{fileName}</div>);
-    }
-    return fileNameElemArr;
+  /**
+   * Sets newFiles in state, which sends them to SidebarUploader
+   * @param {File[]} newFiles Array of Files to be added to SidebarFilelist
+   */
+  setNewFiles(newFiles) {
+    this.setState({
+      newFiles: newFiles,
+    });
   }
 
   render() {
     return (
-      <div className="sidebar">
-        <div className="sidebar-file-list">{this.getFileNameElems()}</div>
-        <div className="sidebar-uploader">
-          <input
-            onChange={this.onFileInputChange}
-            type="file"
-            name="inputFile"
-            id="inputFile"
-            multiple
-          />
-        </div>
+      <div className="Sidebar">
+        <SidebarUploader setNewFiles={this.setNewFiles} />
+        <SidebarFilelist
+          newFiles={this.state.newFiles}
+          setViewerFile={this.props.setViewerFile}
+        />
       </div>
     );
   }

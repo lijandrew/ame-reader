@@ -8,55 +8,27 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: [],
-      // openedFile: null,
+      viewerFile: null,
     };
-    this.getFilenames = this.getFilenames.bind(this);
-    this.clearFiles = this.clearFiles.bind(this);
-    this.addFile = this.addFile.bind(this);
-    this.removeFile = this.removeFile.bind(this);
-    this.openFile = this.openFile.bind(this);
+    this.setViewerFile = this.setViewerFile.bind(this);
   }
 
-  getFilenames() {
-    return this.state.files.map((file) => file.name);
-  }
-
-  clearFiles() {
+  /**
+   * Sets which file Viewer should display
+   * Passed all the way down to SidebarFile to use in its onclick
+   * @param {File} file The file to display in Viewer
+   */
+  setViewerFile(file) {
     this.setState({
-      files: [],
-    });
-  }
-
-  addFile(file) {
-    this.setState((prevState) => {
-      return {
-        files: [...prevState.files, file],
-        // openedFile: [...prevState.files, file][0], // TEMPORARY
-      };
-    });
-  }
-
-  removeFile() {
-    // TODO
-  }
-
-  openFile(file) {
-    this.setState({
-      openedFile: file,
+      viewerFile: file,
     });
   }
 
   render() {
     return (
       <div className="app">
-        <Sidebar
-          filenames={this.getFilenames()}
-          addFile={this.addFile}
-          clearFiles={this.clearFiles}
-          removeFile={this.removeFile}
-        />
-        <Viewer images={this.state.files} />
+        <Sidebar setViewerFile={this.setViewerFile} />
+        <Viewer viewerFile={this.state.viewerFile} />
       </div>
     );
   }

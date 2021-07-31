@@ -1,10 +1,6 @@
-.sidebar {
+.Sidebar {
   position: relative;
   background-color: #242424;
-  .sidebar-file-list {
-  }
-  .sidebar-uploader {
-    position: absolute;
-    bottom: 20px;
-  }
+  display: grid;
+  grid-template-rows: 1fr 5fr;
 }
