@@ -10,26 +10,26 @@ export default class Sidebar extends React.Component {
     this.state = {
       newFiles: [], // Purely for SidebarUploader to send new files to SidebarFilelist
     };
-    this.setNewFiles = this.setNewFiles.bind(this);
+    this.addFiles = this.addFiles.bind(this);
+    this.sidebarFilelistRef = React.createRef();
   }
 
   /**
-   * Sets newFiles in state, which sends them to SidebarUploader
-   * @param {File[]} newFiles Array of Files to be added to SidebarFilelist
+   * Calls child component SidebarFilelist's addFiles(files)
+   * @param {File[]} files Array of Files to be added to SidebarFilelist
    */
-  setNewFiles(newFiles) {
-    this.setState({
-      newFiles: newFiles,
-    });
+  addFiles(files) {
+    console.log("addFiles");
+    this.sidebarFilelistRef.current.addFiles(files);
   }
 
   render() {
     return (
       <div className="Sidebar">
-        <SidebarUploader setNewFiles={this.setNewFiles} />
+        <SidebarUploader addFiles={this.addFiles} />
         <SidebarFilelist
-          newFiles={this.state.newFiles}
           setViewerFile={this.props.setViewerFile}
+          ref={this.sidebarFilelistRef}
         />
       </div>
     );

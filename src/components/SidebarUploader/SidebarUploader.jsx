@@ -6,6 +6,12 @@ export default class SidebarUploader extends React.Component {
   constructor(props) {
     super(props);
     this.onFileInputChange = this.onFileInputChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.pickerElem = null;
+  }
+
+  componentDidMount() {
+    this.pickerElem = document.querySelector("input");
   }
 
   _______componentDidMount() {
@@ -52,8 +58,12 @@ export default class SidebarUploader extends React.Component {
 
   onFileInputChange(event) {
     if (event.target.files && event.target.files[0]) {
-      this.props.setNewFiles(event.target.files);
+      this.props.addFiles(event.target.files);
     }
+  }
+
+  handleClick() {
+    this.pickerElem.value = null;
   }
 
   render() {
@@ -63,8 +73,7 @@ export default class SidebarUploader extends React.Component {
           <input
             onChange={this.onFileInputChange}
             type="file"
-            name="inputFile"
-            id="inputFile"
+            onClick={this.handleClick}
             multiple
           />
         </div>

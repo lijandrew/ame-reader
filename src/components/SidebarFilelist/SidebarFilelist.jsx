@@ -15,18 +15,13 @@ export default class SidebarFilelist extends React.Component {
     this.deleteFile = this.deleteFile.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.newFiles !== prevProps.newFiles) {
-      this.addFiles(this.props.newFiles);
-    }
-  }
-
   /**
    * Adds files to this.state.files
    * TODO: Deal with duplicates
    * @param {File[]} files Array of Files to be added to state variable
    */
   addFiles(files) {
+    console.log("filelist addFiles");
     this.setState((state) => ({
       files: [...state.files, ...files],
     }));
