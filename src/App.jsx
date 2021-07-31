@@ -8,9 +8,37 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      files: [],
       viewerFile: null,
     };
+    this.addFiles = this.addFiles.bind(this);
+    this.deleteFile = this.deleteFile.bind(this);
     this.setViewerFile = this.setViewerFile.bind(this);
+  }
+
+  /**
+   * Adds files to this.state.files
+   * TODO: Deal with duplicates
+   * @param {File[]} files Array of Files to be added to state variable
+   */
+  addFiles(files) {
+    this.setState((state) => ({
+      files: [...state.files, ...files],
+    }));
+  }
+
+  /**
+   * Deletes passed File from the file list
+   * @param {File} file File to be deleted from file list
+   */
+  deleteFile(file) {
+    this.setState((state) => {
+      let filesCopy = [...state.files];
+      filesCopy.splice(filesCopy.indexOf(file), 1);
+      return {
+        files: filesCopy,
+      };
+    });
   }
 
   /**
@@ -19,21 +47,21 @@ export default class App extends React.Component {
    * @param {File} file The file to display in Viewer
    */
   setViewerFile(file) {
-    console.log("setViewerFile called with: ");
-    console.log(file);
     this.setState({
       viewerFile: file,
-    }, () => {
-      console.log("state now");
-      console.log(this.state);
     });
   }
 
   render() {
     return (
       <div className="app">
-        <Sidebar setViewerFile={this.setViewerFile} />
-        <Viewer viewerFile={this.state.viewerFile} />
+        <Sidebar
+          files={this.state.files}
+          addFiles={this.addFiles}
+          deleteFile={this.deleteFile}
+          setViewerFile={this.setViewerFile}
+        />
+        <Viewer files={this.state.files} viewerFile={this.state.viewerFile} />
       </div>
     );
   }

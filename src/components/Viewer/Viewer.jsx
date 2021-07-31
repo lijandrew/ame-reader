@@ -1,4 +1,7 @@
 import React from "react";
+import ViewerCanvas from "../ViewerCanvas/ViewerCanvas.jsx";
+import ViewerToolbar from "../ViewerToolbar/ViewerToolbar.jsx";
+
 const jszip = require("jszip");
 
 import "./Viewer.scss";
@@ -11,7 +14,6 @@ export default class Viewer extends React.Component {
     };
     this.revokeUrls = this.revokeUrls.bind(this);
     this.createUrls = this.createUrls.bind(this);
-    this.getImageElems = this.getImageElems.bind(this);
     this.processFile = this.processFile.bind(this);
     this.unzip = this.unzip.bind(this);
   }
@@ -22,11 +24,7 @@ export default class Viewer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("update");
-    console.log(this.props.viewerFile);
-    console.log(prevProps.viewerFile);
     if (this.props.viewerFile !== prevProps.viewerFile) {
-      console.log("update if");
       this.revokeUrls(this.state.imageUrls);
       this.processFile(this.props.viewerFile);
     }
@@ -40,7 +38,6 @@ export default class Viewer extends React.Component {
    * @param {File} file The file to process for viewing
    */
   processFile(file) {
-    console.log(file);
     if (file) {
       this.unzip(this.props.viewerFile).then((blobs) => {
         let urls = this.createUrls(blobs);
@@ -100,23 +97,11 @@ export default class Viewer extends React.Component {
     }
   }
 
-  /**
-   * Creates and returns an array of <img> files with src attributes linked
-   * @returns Array of <img>
-   */
-  getImageElems() {
-    let imageElemArr = [];
-    for (let i = 0; i < this.state.imageUrls.length; i++) {
-      let imageUrl = this.state.imageUrls[i];
-      imageElemArr.push(<img src={imageUrl} key={`image-${i}`} />);
-    }
-    return imageElemArr;
-  }
-
   render() {
     return (
-      <div className="viewer">
-        <div className="viewer-img-wrapper">{this.getImageElems()}</div>
+      <div className="Viewer">
+        <ViewerToolbar />
+        <ViewerCanvas imageUrls={this.state.imageUrls} />
       </div>
     );
   }

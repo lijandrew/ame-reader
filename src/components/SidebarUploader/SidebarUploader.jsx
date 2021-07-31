@@ -6,24 +6,25 @@ export default class SidebarUploader extends React.Component {
   constructor(props) {
     super(props);
     this.onFileInputChange = this.onFileInputChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.pickerElem = null;
+    this.handlePickerInputClick = this.handlePickerInputClick.bind(this);
+    this.handlePickerButtonClick = this.handlePickerButtonClick.bind(this);
+    this.pickerInput = null;
+    this.pickerButton = null;
   }
 
   componentDidMount() {
-    this.pickerElem = document.querySelector("input");
+    this.pickerInput = document.querySelector(".picker input");
+    this.pickerButton = document.querySelector(".picker-button");
   }
 
   _______componentDidMount() {
     let dropper = document.querySelector(".dropper");
 
     let showDropper = function () {
-      console.log("showFiledrop");
       dropper.style.visibility = "visible";
     };
 
     let hideDropper = function () {
-      console.log("hideFiledrop");
       dropper.style.visibility = "hidden";
     };
 
@@ -62,8 +63,12 @@ export default class SidebarUploader extends React.Component {
     }
   }
 
-  handleClick() {
-    this.pickerElem.value = null;
+  handlePickerInputClick() {
+    this.pickerInput.value = null;
+  }
+
+  handlePickerButtonClick() {
+    this.pickerInput.click();
   }
 
   render() {
@@ -73,9 +78,12 @@ export default class SidebarUploader extends React.Component {
           <input
             onChange={this.onFileInputChange}
             type="file"
-            onClick={this.handleClick}
+            onClick={this.handlePickerInputClick}
             multiple
           />
+          <div className="picker-button" onClick={this.handlePickerButtonClick}>
+            <span>Upload .cbz</span>
+          </div>
         </div>
         <div className="dropper"></div>;
       </div>

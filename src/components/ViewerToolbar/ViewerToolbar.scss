@@ -1,0 +1,9 @@
+.ViewerToolbar {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 500px;
+  width: 50px;
+  background-color: rgba(0, 0, 0, 0.8);
+}

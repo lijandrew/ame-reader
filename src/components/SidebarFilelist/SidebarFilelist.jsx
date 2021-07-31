@@ -1,4 +1,5 @@
 import React from "react";
+// import { Sortable, Plugins } from "@shopify/draggable";
 
 import SidebarFile from "../SidebarFile/SidebarFile.jsx";
 
@@ -7,48 +8,35 @@ import "./SidebarFilelist.scss";
 export default class SidebarFilelist extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      files: [],
-    };
+    this.state = {};
     this.getFileElems = this.getFileElems.bind(this);
-    this.addFiles = this.addFiles.bind(this);
-    this.deleteFile = this.deleteFile.bind(this);
   }
 
-  /**
-   * Adds files to this.state.files
-   * TODO: Deal with duplicates
-   * @param {File[]} files Array of Files to be added to state variable
-   */
-  addFiles(files) {
-    console.log("filelist addFiles");
-    this.setState((state) => ({
-      files: [...state.files, ...files],
-    }));
-  }
-
-  /**
-   * Deletes passed File from the file list
-   * @param {File} file File to be deleted from file list
-   */
-  deleteFile(file) {
-    this.setState((state) => {
-      let filesCopy = [...state.files];
-      filesCopy.splice(filesCopy.indexOf(file), 1);
-      return {
-        files: filesCopy,
-      };
-    });
+  componentDidMount() {
+    /*
+    const sortable = new Sortable(
+      document.querySelectorAll(".SidebarFilelist"),
+      {
+        draggable: ".SidebarFile",
+        swapAnimation: {
+          duration: 200,
+          easingFunction: "ease-in-out",
+          horizontal: false,
+        },
+        plugins: [Plugins.SwapAnimation], // Or [SwapAnimation]
+      }
+    );
+    */
   }
 
   getFileElems() {
     let fileElems = [];
-    for (let i = 0; i < this.state.files.length; i++) {
+    for (let i = 0; i < this.props.files.length; i++) {
       fileElems.push(
         <SidebarFile
-          file={this.state.files[i]}
+          file={this.props.files[i]}
           setViewerFile={this.props.setViewerFile}
-          deleteFile={this.deleteFile}
+          deleteFile={this.props.deleteFile}
           key={`file-${i}`}
         />
       );
