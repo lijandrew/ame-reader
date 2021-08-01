@@ -1,6 +1,8 @@
 import React from "react";
+
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
 import Viewer from "./components/Viewer/Viewer.jsx";
+import Toolbar from "./components/Toolbar/Toolbar.jsx";
 
 import "./App.scss";
 
@@ -10,10 +12,30 @@ export default class App extends React.Component {
     this.state = {
       files: [],
       viewerFile: null,
+      zoom: 80,
+      margin: 10,
     };
+
     this.addFiles = this.addFiles.bind(this);
     this.deleteFile = this.deleteFile.bind(this);
+
     this.setViewerFile = this.setViewerFile.bind(this);
+    this.nextViewerFile = this.nextViewerFile.bind(this);
+    this.prevViewerFile = this.prevViewerFile.bind(this);
+
+    this.setZoom = this.setZoom.bind(this);
+    this.setMargin = this.setMargin.bind(this);
+    this.increaseZoom = this.increaseZoom.bind(this);
+    this.decreaseZoom = this.decreaseZoom.bind(this);
+    this.increaseMargin = this.increaseMargin.bind(this);
+    this.decreaseMargin = this.decreaseMargin.bind(this);
+
+    this.zoomConstant = 5;
+    this.marginConstant = 5;
+    this.maxZoom = 100;
+    this.minZoom = 30;
+    this.maxMargin = 50;
+    this.minMargin = 0;
   }
 
   /**
@@ -52,6 +74,68 @@ export default class App extends React.Component {
     });
   }
 
+  /**
+   * Sets viewerFile to the next file in the array
+   */
+  nextViewerFile() {
+    let currentIndex = this.props.files.indexOf(this.props.viewerFile);
+    if (currentIndex === -1) {
+      return;
+    }
+    if (currentIndex < this.props.files.length - 1) {
+      this.props.setViewerFile(this.props.files[currentIndex + 1]);
+    }
+    // If out of bounds, do nothing
+  }
+
+  /**
+   * Sets viewerFile to the previous file in the array
+   */
+  prevViewerFile() {
+    let currentIndex = this.props.files.indexOf(this.props.viewerFile);
+    if (currentIndex === -1) {
+      return;
+    }
+    if (currentIndex > 0) {
+      this.props.setViewerFile(this.props.files[currentIndex - 1]);
+    }
+    // If out of bounds, do nothing
+  }
+
+  setZoom(newZoom) {
+    this.setState({
+      zoom: newZoom,
+    });
+  }
+
+  setMargin(newMargin) {
+    this.setState({
+      margin: newMargin,
+    });
+  }
+
+  increaseZoom() {
+    this.setZoom(Math.min(this.maxZoom, this.state.zoom + this.zoomConstant));
+  }
+
+  decreaseZoom() {
+    console.log("decreaseZoom");
+    this.setZoom(Math.max(this.minZoom, this.state.zoom - this.zoomConstant));
+  }
+
+  increaseMargin() {
+    this.setMargin(
+      Math.min(this.maxMargin, this.state.margin + this.marginConstant)
+    );
+  }
+
+  decreaseMargin() {
+    console.log("decreaseMargin");
+    this.setMargin(
+      Math.max(this.minMargin, this.state.margin - this.marginConstant)
+    );
+  }
+
   render() {
     return (
       <div className="app">
@@ -60,8 +144,23 @@ export default class App extends React.Component {
           addFiles={this.addFiles}
           deleteFile={this.deleteFile}
           setViewerFile={this.setViewerFile}
+          viewerFile={this.state.viewerFile}
         />
-        <Viewer files={this.state.files} viewerFile={this.state.viewerFile} />
+        <Toolbar
+          nextViewerFile={this.nextViewerFile}
+          prevViewerFile={this.prevViewerFile}
+          increaseMargin={this.increaseMargin}
+          decreaseMargin={this.decreaseMargin}
+          increaseZoom={this.increaseZoom}
+          decreaseZoom={this.decreaseZoom}
+        />
+        <Viewer
+          files={this.state.files}
+          viewerFile={this.state.viewerFile}
+          setViewerFile={this.setViewerFile}
+          zoom={this.state.zoom}
+          margin={this.state.margin}
+        />
       </div>
     );
   }

@@ -1,6 +1,4 @@
 import React from "react";
-import ViewerCanvas from "../ViewerCanvas/ViewerCanvas.jsx";
-import ViewerToolbar from "../ViewerToolbar/ViewerToolbar.jsx";
 
 const jszip = require("jszip");
 
@@ -16,6 +14,7 @@ export default class Viewer extends React.Component {
     this.createUrls = this.createUrls.bind(this);
     this.processFile = this.processFile.bind(this);
     this.unzip = this.unzip.bind(this);
+    this.getImageElems = this.getImageElems.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +26,9 @@ export default class Viewer extends React.Component {
     if (this.props.viewerFile !== prevProps.viewerFile) {
       this.revokeUrls(this.state.imageUrls);
       this.processFile(this.props.viewerFile);
+    }
+    if (this.props.zoom !== prevProps.zoom || this.props.margin !== prevProps.margin) {
+      this.forceUpdate();
     }
   }
 
@@ -97,11 +99,38 @@ export default class Viewer extends React.Component {
     }
   }
 
+  /**
+   * Creates and returns an array of <img> files with src attributes linked
+   * @returns Array of <img>
+   */
+  getImageElems() {
+    let imageElemArr = [];
+    for (let i = 0; i < this.state.imageUrls.length; i++) {
+      let imageUrl = this.state.imageUrls[i];
+      imageElemArr.push(
+        <img
+          style={{
+            margin: `${this.props.margin}px 0`,
+          }}
+          src={imageUrl}
+          key={`image-${i}`}
+        />
+      );
+    }
+    return imageElemArr;
+  }
+
   render() {
     return (
       <div className="Viewer">
-        <ViewerToolbar />
-        <ViewerCanvas imageUrls={this.state.imageUrls} />
+        <div
+          className="Viewer-image-wrapper"
+          style={{
+            width: `${this.props.zoom}%`,
+          }}
+        >
+          {this.getImageElems()}
+        </div>
       </div>
     );
   }

@@ -36,6 +36,7 @@ export default class SidebarFilelist extends React.Component {
         <SidebarFile
           file={this.props.files[i]}
           setViewerFile={this.props.setViewerFile}
+          viewerFile={this.props.viewerFile}
           deleteFile={this.props.deleteFile}
           key={`file-${i}`}
         />
