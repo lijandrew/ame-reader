@@ -15,11 +15,25 @@ export default class Viewer extends React.Component {
     this.processFile = this.processFile.bind(this);
     this.unzip = this.unzip.bind(this);
     this.getImageElems = this.getImageElems.bind(this);
+
+    this.viewerRef = React.createRef();
   }
 
   componentDidMount() {
     this.revokeUrls(this.state.imageUrls);
     this.processFile(this.props.viewerFile);
+    let viewerElem = this.viewerRef.current;
+    viewerElem.scrollTop = 0;
+
+    viewerElem.addEventListener("scroll", () => {
+      console.log("scroll");
+      if (viewerElem.scrollHeight - viewerElem.scrollTop - viewerElem.clientHeight < 1) {
+        // At bottom, go to next file
+        console.log("at bottom");
+        this.props.nextViewerFile();
+      }
+      // How to handle top???
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -27,7 +41,10 @@ export default class Viewer extends React.Component {
       this.revokeUrls(this.state.imageUrls);
       this.processFile(this.props.viewerFile);
     }
-    if (this.props.zoom !== prevProps.zoom || this.props.margin !== prevProps.margin) {
+    if (
+      this.props.zoom !== prevProps.zoom ||
+      this.props.margin !== prevProps.margin
+    ) {
       this.forceUpdate();
     }
   }
@@ -43,9 +60,15 @@ export default class Viewer extends React.Component {
     if (file) {
       this.unzip(this.props.viewerFile).then((blobs) => {
         let urls = this.createUrls(blobs);
-        this.setState({
-          imageUrls: urls,
-        });
+        this.setState(
+          {
+            imageUrls: urls,
+          },
+          () => {
+            // Wait until here to scroll to top to minimize the "flash"
+            this.viewerRef.current.scrollTop = 0;
+          }
+        );
       });
     } else {
       this.revokeUrls(this.state.imageUrls);
@@ -122,7 +145,7 @@ export default class Viewer extends React.Component {
 
   render() {
     return (
-      <div className="Viewer">
+      <div ref={this.viewerRef} className="Viewer">
         <div
           className="Viewer-image-wrapper"
           style={{

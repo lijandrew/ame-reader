@@ -78,12 +78,12 @@ export default class App extends React.Component {
    * Sets viewerFile to the next file in the array
    */
   nextViewerFile() {
-    let currentIndex = this.props.files.indexOf(this.props.viewerFile);
+    let currentIndex = this.state.files.indexOf(this.state.viewerFile);
     if (currentIndex === -1) {
       return;
     }
-    if (currentIndex < this.props.files.length - 1) {
-      this.props.setViewerFile(this.props.files[currentIndex + 1]);
+    if (currentIndex < this.state.files.length - 1) {
+      this.setViewerFile(this.state.files[currentIndex + 1]);
     }
     // If out of bounds, do nothing
   }
@@ -92,12 +92,12 @@ export default class App extends React.Component {
    * Sets viewerFile to the previous file in the array
    */
   prevViewerFile() {
-    let currentIndex = this.props.files.indexOf(this.props.viewerFile);
+    let currentIndex = this.state.files.indexOf(this.state.viewerFile);
     if (currentIndex === -1) {
       return;
     }
     if (currentIndex > 0) {
-      this.props.setViewerFile(this.props.files[currentIndex - 1]);
+      this.setViewerFile(this.state.files[currentIndex - 1]);
     }
     // If out of bounds, do nothing
   }
@@ -155,9 +155,9 @@ export default class App extends React.Component {
           decreaseZoom={this.decreaseZoom}
         />
         <Viewer
-          files={this.state.files}
           viewerFile={this.state.viewerFile}
-          setViewerFile={this.setViewerFile}
+          nextViewerFile={this.nextViewerFile}
+          prevViewerFile={this.prevViewerFile}
           zoom={this.state.zoom}
           margin={this.state.margin}
         />
