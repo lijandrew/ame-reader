@@ -1,10 +1,12 @@
 @import "../../variables.scss";
 
-.Toolbar {
-  background-color: $dark;
+.QuickNav {
   display: flex;
   flex-direction: row;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
+  font-family: $font-family;
+  color: $primary;
+  background-color: $dark;
 }

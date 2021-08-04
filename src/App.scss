@@ -1,4 +1,19 @@
+// Application styling
+// For non app related styles (i.e. CSS resets, global background color), see index.scss
+
 .app {
   display: flex;
 }
 
+// To be applied to the wrapper <div> around the svg <img>, not to the <img> itself
+.svg-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10px;
+  user-select: none;
+  &:hover img {
+    filter: brightness(150%);
+  }
+}

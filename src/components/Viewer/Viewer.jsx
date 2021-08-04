@@ -1,6 +1,7 @@
 import React from "react";
-
 const jszip = require("jszip");
+
+import QuickNav from "../QuickNav/QuickNav.jsx";
 
 import "./Viewer.scss";
 
@@ -136,6 +137,16 @@ export default class Viewer extends React.Component {
   render() {
     return (
       <div ref={this.viewerRef} className="Viewer">
+        {this.props.viewerFile ? (
+          <QuickNav
+            prevViewerFile={this.props.prevViewerFile}
+            filename={this.props.viewerFile.name}
+            nextViewerFile={this.props.nextViewerFile}
+          />
+        ) : (
+          ""
+        )}
+
         <div
           className="Viewer-image-wrapper"
           style={{
@@ -144,6 +155,16 @@ export default class Viewer extends React.Component {
         >
           {this.getImageElems()}
         </div>
+
+        {this.props.viewerFile ? (
+          <QuickNav
+            prevViewerFile={this.props.prevViewerFile}
+            filename={this.props.viewerFile.name}
+            nextViewerFile={this.props.nextViewerFile}
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }

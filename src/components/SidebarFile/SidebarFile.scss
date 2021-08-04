@@ -2,10 +2,9 @@
 
 .SidebarFile {
   padding: 10px;
-  // Placeholder color
-  background-color: $darker;
+  // TODO: Find better background-color for files?
+  background-color: $dark;
   color: $primary;
-  margin: 2px 0;
   font-family: $font-family;
   display: flex;
   flex-direction: row;
@@ -14,12 +13,15 @@
   cursor: pointer;
   transition: background-color 200ms ease-out;
   &:hover {
-    // Placeholder color
-    background-color: gray;
+    background-color: $primary;
+    color: $darker;
+    .delete img {
+      filter: grayscale(100%) brightness(0);
+    }
   }
 }
 
-.SidebarFile-delete {
+.delete {
   display: flex;
   cursor: pointer;
   margin-left: 20px;
@@ -33,5 +35,9 @@
 }
 
 .SidebarFile.active {
-  background-color: gray;
+  background-color: $primary;
+  color: $darker;
+  .delete img {
+    filter: grayscale(100%) brightness(0);
+  }
 }
