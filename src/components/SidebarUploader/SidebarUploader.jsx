@@ -17,46 +17,6 @@ export default class SidebarUploader extends React.Component {
     this.pickerButton = document.querySelector(".picker-button");
   }
 
-  _______componentDidMount() {
-    let dropper = document.querySelector(".dropper");
-
-    let showDropper = function () {
-      dropper.style.visibility = "visible";
-    };
-
-    let hideDropper = function () {
-      dropper.style.visibility = "hidden";
-    };
-
-    let allowDrag = function (e) {
-      if (true) {
-        // Test that the item being dragged is a valid one
-        e.dataTransfer.dropEffect = "copy";
-        e.preventDefault();
-      }
-    };
-
-    let handleDrop = function (e) {
-      e.preventDefault();
-      hideDropper();
-      alert("Drop!");
-    };
-
-    window.addEventListener("dragenter", function (e) {
-      showDropper();
-    });
-
-    dropper.addEventListener("dragenter", allowDrag);
-
-    dropper.addEventListener("dragover", allowDrag);
-
-    dropper.addEventListener("dragleave", function (e) {
-      hideDropper();
-    });
-
-    dropper.addEventListener("drop", handleDrop);
-  }
-
   onFileInputChange(event) {
     if (event.target.files && event.target.files[0]) {
       this.props.addFiles(event.target.files);
@@ -79,13 +39,13 @@ export default class SidebarUploader extends React.Component {
             onChange={this.onFileInputChange}
             type="file"
             onClick={this.handlePickerInputClick}
+            accept=".cbz,.zip,.rar,.7z"
             multiple
           />
           <div className="picker-button" onClick={this.handlePickerButtonClick}>
-            <span>Upload .cbz</span>
+            <span>Upload .CBZ</span>
           </div>
         </div>
-        <div className="dropper"></div>;
       </div>
     );
   }

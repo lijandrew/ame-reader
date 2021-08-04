@@ -22,18 +22,7 @@ export default class Viewer extends React.Component {
   componentDidMount() {
     this.revokeUrls(this.state.imageUrls);
     this.processFile(this.props.viewerFile);
-    let viewerElem = this.viewerRef.current;
-    viewerElem.scrollTop = 0;
-
-    viewerElem.addEventListener("scroll", () => {
-      console.log("scroll");
-      if (viewerElem.scrollHeight - viewerElem.scrollTop - viewerElem.clientHeight < 1) {
-        // At bottom, go to next file
-        console.log("at bottom");
-        this.props.nextViewerFile();
-      }
-      // How to handle top???
-    })
+    this.viewerRef.current.scrollTop = 0;
   }
 
   componentDidUpdate(prevProps) {
@@ -136,6 +125,7 @@ export default class Viewer extends React.Component {
             margin: `${this.props.margin}px 0`,
           }}
           src={imageUrl}
+          draggable="false"
           key={`image-${i}`}
         />
       );

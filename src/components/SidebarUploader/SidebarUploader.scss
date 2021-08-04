@@ -1,5 +1,8 @@
+@import "../../variables.scss";
+
 .SidebarUploader {
   position: relative;
+  user-select: none;
 }
 
 .picker input {
@@ -8,16 +11,14 @@
 
 .picker-button {
   position: relative;
-  background-color: #74b9ff;
-  // color: white;
+  background-color: $primary;
   color: black;
-  font-weight: bold;
   padding: 20px;
-  margin: 20px;
+  // margin: 20px;
   text-align: center;
   cursor: pointer;
-  border-radius: 5px;
   overflow: hidden;
+  font-family: $font-family;
   &:hover {
     transition: color 100ms ease-out;
     color: white;
@@ -28,11 +29,11 @@
   }
   &::before {
     content: "";
-    z-index: 0;
+    // z-index: 0;
     position: absolute;
     left: 50%;
     top: 50%;
-    background-color: #0984e3;
+    background-color: $secondary;
     height: 350%;
     width: 150%;
     border-radius: 50%;
@@ -41,15 +42,6 @@
   }
   span {
     position: relative;
-    z-index: 9;
+    // TODO: some kind of min-width or no-wrap to prevent this line from breaking
   }
-}
-
-.dropper {
-  z-index: 999;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: #949494;
-  visibility: hidden;
 }

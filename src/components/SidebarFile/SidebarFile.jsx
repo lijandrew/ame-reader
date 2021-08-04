@@ -9,6 +9,7 @@ export default class SidebarFile extends React.Component {
       active: false,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleAuxClick = this.handleAuxClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.elemRef = React.createRef();
   }
@@ -27,8 +28,14 @@ export default class SidebarFile extends React.Component {
     }
   }
 
-  handleClick() {
+  handleClick(e) {
     this.props.setViewerFile(this.props.file);
+  }
+
+  handleAuxClick(e) {
+    if (e.button === 1) {
+      this.handleDelete(e);
+    }
   }
 
   handleDelete(e) {
@@ -42,10 +49,11 @@ export default class SidebarFile extends React.Component {
       <div
         className={`SidebarFile${this.state.active ? " active" : ""}`}
         onClick={this.handleClick}
+        onAuxClick={this.handleAuxClick}
       >
         {this.props.file.name}
         <div className="SidebarFile-delete" onClick={this.handleDelete}>
-          X
+          <img src={require("../../assets/x.svg")} />
         </div>
       </div>
     );

@@ -1,8 +1,25 @@
+@import "../../variables.scss";
+
 .Toolbar {
-  height: 100%;
   position: relative;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: $dark;
   display: flex;
-  flex-direction: column;
-  // padding: 10px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 20px 0;
+  & > div {
+    cursor: pointer;
+    user-select: none;
+    margin: 0px 10px;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 25px;
+    }
+    &:hover img {
+      filter: brightness(150%);
+    }
+  }
 }

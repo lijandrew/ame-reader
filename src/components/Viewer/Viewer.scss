@@ -1,12 +1,15 @@
+@import "../../variables.scss";
+
 .Viewer {
   position: relative;
-  background-color: #1f1f1f;
+  background-color: $darker;
   overflow-y: auto;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
+  user-select: none;
 }
 
 .Viewer-image-wrapper {
@@ -16,5 +19,22 @@
   max-width: 100%;
   img {
     max-width: 100%;
+    width: 100%;
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: white;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0px;
+  box-shadow: inset 0px 0px 0px 0px #f0f0f0;
 }

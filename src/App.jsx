@@ -2,7 +2,6 @@ import React from "react";
 
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
 import Viewer from "./components/Viewer/Viewer.jsx";
-import Toolbar from "./components/Toolbar/Toolbar.jsx";
 
 import "./App.scss";
 
@@ -13,7 +12,7 @@ export default class App extends React.Component {
       files: [],
       viewerFile: null,
       zoom: 80,
-      margin: 10,
+      margin: 5,
     };
 
     this.addFiles = this.addFiles.bind(this);
@@ -33,7 +32,7 @@ export default class App extends React.Component {
     this.zoomConstant = 5;
     this.marginConstant = 5;
     this.maxZoom = 100;
-    this.minZoom = 30;
+    this.minZoom = 10;
     this.maxMargin = 50;
     this.minMargin = 0;
   }
@@ -145,8 +144,7 @@ export default class App extends React.Component {
           deleteFile={this.deleteFile}
           setViewerFile={this.setViewerFile}
           viewerFile={this.state.viewerFile}
-        />
-        <Toolbar
+          // Props below for Toolbar child
           nextViewerFile={this.nextViewerFile}
           prevViewerFile={this.prevViewerFile}
           increaseMargin={this.increaseMargin}

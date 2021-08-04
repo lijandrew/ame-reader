@@ -1,25 +1,37 @@
+@import "../../variables.scss";
+
 .SidebarFile {
   padding: 10px;
-  background-color: #d1d1d1;
-  cursor: pointer;
+  // Placeholder color
+  background-color: $darker;
+  color: $primary;
+  margin: 2px 0;
+  font-family: $font-family;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   user-select: none;
+  cursor: pointer;
+  transition: background-color 200ms ease-out;
   &:hover {
-    background-color: #ededed;
+    // Placeholder color
+    background-color: gray;
   }
 }
 
 .SidebarFile-delete {
+  display: flex;
   cursor: pointer;
-  &:hover {
-    // Placeholder animation
+  margin-left: 20px;
+  img {
+    transition: transform 200ms ease-out;
+    width: 15px;
+  }
+  &:hover img {
     transform: rotate(90deg);
-    transition: transform 100ms linear;
   }
 }
 
 .SidebarFile.active {
-  background-color: #ededed;
+  background-color: gray;
 }
