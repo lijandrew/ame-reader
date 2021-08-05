@@ -19,6 +19,9 @@
       filter: grayscale(100%) brightness(0);
     }
   }
+  &:not(:nth-child(1)) {
+    border-top: 1px solid $primary;
+  }
 }
 
 .delete {
