@@ -7,7 +7,7 @@ export default class Splash extends React.Component {
     return (
       <div className="Splash">
         <img src={require("../../assets/splash.gif")} alt="Welcome GIF" />
-        <div className="Splash-text">drag 'n drop your .cbz</div>
+        <div className="Splash-text">drag 'n drop your .cbz files</div>
         <div className="Splash-text-small">or use the Upload button</div>
       </div>
     );
