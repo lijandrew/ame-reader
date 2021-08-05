@@ -108,7 +108,7 @@ export default class SidebarUploader extends React.Component {
             className="picker-button"
             onClick={this.handlePickerButtonClick}
           >
-            <span>Upload .CBZ</span>
+            <span>Upload .cbz</span>
           </div>
 
           <div className="dropper" ref={this.dropperRef}></div>

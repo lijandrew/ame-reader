@@ -2,6 +2,7 @@ import React from "react";
 const jszip = require("jszip");
 
 import QuickNav from "../QuickNav/QuickNav.jsx";
+import Splash from "../Splash/Splash.jsx";
 
 import "./Viewer.scss";
 
@@ -137,6 +138,7 @@ export default class Viewer extends React.Component {
   render() {
     return (
       <div ref={this.viewerRef} className="Viewer">
+        {this.props.viewerFile ? "" : <Splash />}
         {this.props.viewerFile ? (
           <QuickNav
             prevViewerFile={this.props.prevViewerFile}

@@ -1,0 +1,30 @@
+@import "../../variables.scss";
+
+.Splash {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 100%;
+    width: 500px;
+    margin-bottom: 20px;
+  }
+}
+
+.Splash-text,
+.Splash-text-small {
+  color: white;
+  font-family: $font-family;
+}
+
+.Splash-text {
+  font-size: 32px;
+}
+
+.Splash-text-small {
+  font-size: 14px;
+}
