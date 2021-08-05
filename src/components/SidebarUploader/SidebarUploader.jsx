@@ -5,7 +5,7 @@ import "./SidebarUploader.scss";
 export default class SidebarUploader extends React.Component {
   constructor(props) {
     super(props);
-    this.addFiles = this.addFiles.bind(this);
+    this.uploadFiles = this.uploadFiles.bind(this);
     this.handleFileInputChange = this.handleFileInputChange.bind(this);
     this.handlePickerInputClick = this.handlePickerInputClick.bind(this);
     this.handlePickerButtonClick = this.handlePickerButtonClick.bind(this);
@@ -46,7 +46,7 @@ export default class SidebarUploader extends React.Component {
     let handleDrop = (e) => {
       e.preventDefault();
       hideDropper();
-      this.addFiles(e.dataTransfer.files);
+      this.uploadFiles(e.dataTransfer.files);
     };
 
     // Show dropper when dragged into anywhere in the window
@@ -69,15 +69,15 @@ export default class SidebarUploader extends React.Component {
 
   handleFileInputChange(event) {
     if (event.target.files && event.target.files[0]) {
-      this.addFiles(event.target.files);
+      this.uploadFiles(event.target.files);
     }
   }
 
   /**
-   * Sorts files by name and adds them to the available files
+   * Sorts files by name, then calls this.props.addFiles on them
    * @param {File[]} files Files to add
    */
-  addFiles(files) {
+  uploadFiles(files) {
     files = Array.from(files); // In case files passed in was directly from event object
     files.sort((a, b) => (a.name > b.name ? 1 : -1)); // Sort by filename
     this.props.addFiles(files);
@@ -100,7 +100,7 @@ export default class SidebarUploader extends React.Component {
             onChange={this.handleFileInputChange}
             type="file"
             onClick={this.handlePickerInputClick}
-            accept=".cbz,.zip,.rar,.7z"
+            accept=".cbz,.zip,.rar,.7z,.7zip"
             multiple
           />
           <div

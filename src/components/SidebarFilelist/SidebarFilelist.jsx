@@ -1,5 +1,4 @@
 import React from "react";
-// import { Sortable, Plugins } from "@shopify/draggable";
 
 import SidebarFile from "../SidebarFile/SidebarFile.jsx";
 
@@ -10,23 +9,6 @@ export default class SidebarFilelist extends React.Component {
     super(props);
     this.state = {};
     this.getFileElems = this.getFileElems.bind(this);
-  }
-
-  componentDidMount() {
-    /*
-    const sortable = new Sortable(
-      document.querySelectorAll(".SidebarFilelist"),
-      {
-        draggable: ".SidebarFile",
-        swapAnimation: {
-          duration: 200,
-          easingFunction: "ease-in-out",
-          horizontal: false,
-        },
-        plugins: [Plugins.SwapAnimation], // Or [SwapAnimation]
-      }
-    );
-    */
   }
 
   getFileElems() {
