@@ -35,6 +35,10 @@ export default class App extends React.Component {
     this.minZoom = 10;
     this.maxMargin = 50;
     this.minMargin = 0;
+
+    // For Sidebar toggling to work even though Burger menu is child of Viewer for CSS reasons
+    this.sidebarRef = React.createRef();
+    this.toggleSidebar = this.toggleSidebar.bind(this);
   }
 
   /**
@@ -135,10 +139,15 @@ export default class App extends React.Component {
     );
   }
 
+  toggleSidebar() {
+    this.sidebarRef.current.toggleSidebar();
+  }
+
   render() {
     return (
-      <div className="app">
+      <div className="App">
         <Sidebar
+          ref={this.sidebarRef}
           files={this.state.files}
           addFiles={this.addFiles}
           deleteFile={this.deleteFile}
@@ -158,6 +167,7 @@ export default class App extends React.Component {
           prevViewerFile={this.prevViewerFile}
           zoom={this.state.zoom}
           margin={this.state.margin}
+          toggleSidebar={this.toggleSidebar}
         />
       </div>
     );

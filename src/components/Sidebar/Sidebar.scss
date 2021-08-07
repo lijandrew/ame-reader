@@ -1,15 +1,22 @@
 @import "../../variables.scss";
 
 .Sidebar {
+  z-index: 2;
   position: relative;
   background-color: $dark;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+
+  // If there are so many files that a scrollbar is needed
   overflow-y: auto;
+
+  // Minimize-maximize functionality
+  max-width: 50%; // transitions don't work with width: auto, so transitioning max-width instead
+  overflow-x: hidden;
+  transition: max-width 200ms ease-out;
 }
 
 .Sidebar.hidden {
-  overflow-x: hidden;
-  width: 0;
+  max-width: 0;
 }

@@ -11,10 +11,10 @@ export default class Sidebar extends React.Component {
     this.state = {
       hidden: false,
     };
-    this.toggle = this.toggle.bind(this);
+    this.toggleSidebar = this.toggleSidebar.bind(this);
   }
 
-  toggle() {
+  toggleSidebar() {
     this.setState((state) => ({
       hidden: !state.hidden,
     }));
@@ -22,7 +22,7 @@ export default class Sidebar extends React.Component {
 
   render() {
     return (
-      <div className="Sidebar">
+      <div className={`Sidebar${this.state.hidden ? " hidden" : ""}`}>
         <SidebarUploader addFiles={this.props.addFiles} />
         <Toolbar
           nextViewerFile={this.props.nextViewerFile}

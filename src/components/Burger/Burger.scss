@@ -1,0 +1,17 @@
+@import "../../variables.scss";
+
+.Burger {
+  padding: 20px;
+  background-color: $dark;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Burger-svg {
+  transition: transform 200ms ease-out;
+}

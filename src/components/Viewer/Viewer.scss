@@ -1,6 +1,7 @@
 @import "../../variables.scss";
 
 .Viewer {
+  z-index: 1;
   position: relative;
   background-color: $darker;
   overflow-y: auto;

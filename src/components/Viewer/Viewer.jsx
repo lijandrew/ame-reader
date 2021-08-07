@@ -3,6 +3,7 @@ const jszip = require("jszip");
 
 import QuickNav from "../QuickNav/QuickNav.jsx";
 import Splash from "../Splash/Splash.jsx";
+import Burger from "../Burger/Burger.jsx";
 
 import "./Viewer.scss";
 
@@ -138,6 +139,7 @@ export default class Viewer extends React.Component {
   render() {
     return (
       <div ref={this.viewerRef} className="Viewer">
+        <Burger toggleSidebar={this.props.toggleSidebar} />
         {this.props.viewerFile ? "" : <Splash />}
         {this.props.viewerFile ? (
           <QuickNav
