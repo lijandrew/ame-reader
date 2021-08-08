@@ -4,14 +4,22 @@
   padding: 20px;
   background-color: $dark;
   border: none;
-  border-radius: 10px;
+  border-radius: 0;
   cursor: pointer;
 
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
+  transform: translate(100%, 0);
+  img {
+    transition: transform 200ms ease-out;
+  }
 }
 
-.Burger-svg {
-  transition: transform 200ms ease-out;
+.Burger.active img {
+  transform: rotate(90deg);
+}
+
+.Burger:hover {
+  filter: brightness(150%);
 }

@@ -25,8 +25,11 @@
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  display: none;
+  // width: 10px;
 }
+
+/*
 ::-webkit-scrollbar-thumb {
   background: gray;
   border-radius: 10px;
@@ -39,3 +42,4 @@
   border-radius: 0px;
   box-shadow: inset 0px 0px 0px 0px #f0f0f0;
 }
+*/

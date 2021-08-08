@@ -139,7 +139,9 @@ export default class Viewer extends React.Component {
   render() {
     return (
       <div ref={this.viewerRef} className="Viewer">
-        <Burger toggleSidebar={this.props.toggleSidebar} />
+
+        {/* <Burger toggleSidebar={this.props.toggleSidebar} /> */}
+
         {this.props.viewerFile ? "" : <Splash />}
         {this.props.viewerFile ? (
           <QuickNav

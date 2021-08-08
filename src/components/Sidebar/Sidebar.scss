@@ -1,5 +1,7 @@
 @import "../../variables.scss";
 
+// TODO: limit overflow-y scrollbar to Filelist only (Upload button should not scroll)
+
 .Sidebar {
   z-index: 2;
   position: relative;
@@ -7,16 +9,18 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+}
 
+.Sidebar-content {
   // If there are so many files that a scrollbar is needed
   overflow-y: auto;
 
   // Minimize-maximize functionality
-  max-width: 50%; // transitions don't work with width: auto, so transitioning max-width instead
-  overflow-x: hidden;
-  transition: max-width 200ms ease-out;
+
+  // Transition doesn't work because I need overflow-x: hidden on .Sidebar, but doing that
+  // makes it impossible to show the Burger outside the Sidebar. So... I'm just skipping it
 }
 
-.Sidebar.hidden {
-  max-width: 0;
+.Sidebar-content.hidden {
+  width: 0;
 }
