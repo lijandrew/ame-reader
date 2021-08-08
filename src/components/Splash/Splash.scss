@@ -28,3 +28,9 @@
 .Splash-text-small {
   font-size: 14px;
 }
+
+@media only screen and (max-width: 700px) {
+  .Splash-text {
+    font-size: 20px;
+  }
+}

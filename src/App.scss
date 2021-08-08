@@ -17,3 +17,9 @@
     filter: brightness(150%);
   }
 }
+
+@media only screen and (max-width: 320px) {
+  .svg-button {
+    padding: 15px 5px;
+  }
+}
