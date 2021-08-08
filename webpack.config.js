@@ -34,6 +34,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      favicon: path.join(__dirname, "src", "assets", "favicon.ico"),
       template: path.join(__dirname, "src", "index.html"),
     }),
   ],
