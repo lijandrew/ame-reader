@@ -2,24 +2,24 @@
 
 .Burger {
   padding: 20px;
-  background-color: $dark;
   border: none;
+  background-color: $dark;
   border-radius: 0;
   cursor: pointer;
+  user-select: none;
 
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: -10px;
   transform: translate(100%, 0);
   img {
     transition: transform 200ms ease-out;
   }
 }
 
-.Burger.active img {
-  transform: rotate(90deg);
-}
-
 .Burger:hover {
-  filter: brightness(150%);
+  background-color: $primary;
+  img {
+    filter: brightness(0);
+  }
 }

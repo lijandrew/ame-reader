@@ -14,11 +14,6 @@
 .Sidebar-content {
   // If there are so many files that a scrollbar is needed
   overflow-y: auto;
-
-  // Minimize-maximize functionality
-
-  // Transition doesn't work because I need overflow-x: hidden on .Sidebar, but doing that
-  // makes it impossible to show the Burger outside the Sidebar. So... I'm just skipping it
 }
 
 .Sidebar-content.hidden {
