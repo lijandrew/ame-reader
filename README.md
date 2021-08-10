@@ -1,4 +1,8 @@
-# **Browser-based manga and comic reader**
+![Splash screen gif](./src//assets/splash.gif)
+
+# **Browser-based .cbz reader**
+
+https://lijandrew.github.io/ame/
 
 ## **How to use:**
 
@@ -8,7 +12,7 @@
 - There are also "quick navigation" buttons at the beginning and end of the viewer for convenience
 - Click the hamburger menu to toggle the sidebar
 
-## **Plans:**
+## **TODO:**
 
 - Fix Sidebar overflow-y scroll (limit scrolling to file list)
 - Refine mobile view
