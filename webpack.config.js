@@ -3,11 +3,13 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
+const outputFolder = "docs";
+
 module.exports = {
   mode: "development",
   entry: path.join(__dirname, "src", "index.js"),
   output: {
-    path: path.join(__dirname, "dist"),
+    path: path.join(__dirname, outputFolder),
     filename: "index.[contenthash].bundle.js",
   },
   module: {
@@ -42,7 +44,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, outputFolder),
     hot: true,
   },
 };
