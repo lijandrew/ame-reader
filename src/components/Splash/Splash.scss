@@ -9,15 +9,14 @@
   justify-content: center;
   align-items: center;
   img {
-    max-width: 100%;
     width: 500px;
+    max-width: 100%;
     margin-bottom: 20px;
   }
 }
 
 .Splash-text,
 .Splash-text-small {
-  color: white;
   font-family: $font-family;
 }
 
