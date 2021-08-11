@@ -14,6 +14,7 @@
 
 ## **TODO**
 
+- PWA app ("installable" website)
 - Fix Sidebar overflow-y scroll (limit scrolling to file list)
 - Refine mobile view
 - More animations
