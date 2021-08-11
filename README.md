@@ -1,10 +1,10 @@
-![Splash screen gif](./src//assets/splash.gif)
+![Splash screen gif](./src/assets/splash.gif)
 
-# **Browser-based .cbz reader**
+# **Ame: a browser-based .cbz reader**
 
 https://lijandrew.github.io/ame/
 
-## **How to use:**
+## **How to use**
 
 - Use the **Upload** button or drag 'n drop files into the web app. Supported file extensions are: _.cbz_, _.zip_, _.rar_, _.7z_, and _.7zip_
 - Uploaded files will appear in the left sidebar. Click one to display its contents in the viewer
@@ -12,9 +12,13 @@ https://lijandrew.github.io/ame/
 - There are also "quick navigation" buttons at the beginning and end of the viewer for convenience
 - Click the hamburger menu to toggle the sidebar
 
-## **TODO:**
+## **TODO**
 
 - Fix Sidebar overflow-y scroll (limit scrolling to file list)
 - Refine mobile view
 - More animations
 - ElectronJS desktop app
+
+## **Screenshots**
+
+![Demo screenshot](./src/assets/screenshot.png)
