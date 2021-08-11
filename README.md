@@ -1,8 +1,8 @@
 ![Splash screen gif](./src/assets/splash.gif)
 
-# **Ame: a browser-based .cbz reader**
+# **Ame: browser-based .cbz reader**
 
-https://lijandrew.github.io/ame/
+&rarr; https://lijandrew.github.io/ame/
 
 ## **How to use**
 
