@@ -100,7 +100,7 @@ export default class SidebarUploader extends React.Component {
             onChange={this.handleFileInputChange}
             type="file"
             onClick={this.handlePickerInputClick}
-            accept=".cbz,.zip,.rar,.7z,.7zip"
+            accept=".cbz,.cbr,.zip,.rar,.7z,.7zip"
             multiple
           />
           <div
