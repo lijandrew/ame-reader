@@ -36,11 +36,8 @@ export default class SidebarUploader extends React.Component {
     };
 
     let allowDrag = (e) => {
-      if (true) {
-        // Test that the item being dragged is a valid one
-        e.dataTransfer.dropEffect = "copy";
-        e.preventDefault();
-      }
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "copy";
     };
 
     let handleDrop = (e) => {
@@ -50,16 +47,16 @@ export default class SidebarUploader extends React.Component {
     };
 
     // Show dropper when dragged into anywhere in the window
-    window.addEventListener("dragenter", function (e) {
+    window.addEventListener("dragenter", (e) => {
       showDropper();
     });
 
-    // Constantly preventDefault to allow drag to continue occurring
+    // Constantly call preventDefault to allow drag to continue
     dropper.addEventListener("dragenter", allowDrag);
     dropper.addEventListener("dragover", allowDrag);
 
     // Hide the dropper upon leaving the dropper area
-    dropper.addEventListener("dragleave", function (e) {
+    dropper.addEventListener("dragleave", (e) => {
       hideDropper();
     });
 
@@ -80,7 +77,7 @@ export default class SidebarUploader extends React.Component {
   uploadFiles(files) {
     files = Array.from(files); // In case files passed in was directly from event object
     files.sort((a, b) => (a.name > b.name ? 1 : -1)); // Sort by filename
-    this.props.addFiles(files);
+    this.props.addFiles(files, this.props.revealUploadedFiles);
   }
 
   handlePickerInputClick() {
@@ -100,7 +97,7 @@ export default class SidebarUploader extends React.Component {
             onChange={this.handleFileInputChange}
             type="file"
             onClick={this.handlePickerInputClick}
-            accept=".cbz,.cbr,.zip,.rar,.7z,.7zip"
+            accept=".cbz,.cbr,.zip,.rar,.7z,.7zip,.jpg,.jpeg,.png"
             multiple
           />
           <div

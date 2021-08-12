@@ -2,8 +2,6 @@ import React from "react";
 const jszip = require("jszip");
 
 import QuickNav from "../QuickNav/QuickNav.jsx";
-import Splash from "../Splash/Splash.jsx";
-import Burger from "../Burger/Burger.jsx";
 
 import "./Viewer.scss";
 
@@ -11,7 +9,9 @@ export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageUrls: [], // The image URLs directly used in <img> tags
+      imageUrls: [], // The image URLs directly used in <img> tags.
+      isLoaded: false, // Show loading animation?
+      error: false, // Show error?
     };
     this.revokeUrls = this.revokeUrls.bind(this);
     this.createUrls = this.createUrls.bind(this);
@@ -23,14 +23,11 @@ export default class Viewer extends React.Component {
   }
 
   componentDidMount() {
-    this.revokeUrls(this.state.imageUrls);
     this.processFile(this.props.viewerFile);
-    this.viewerRef.current.scrollTop = 0;
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.viewerFile !== prevProps.viewerFile) {
-      this.revokeUrls(this.state.imageUrls);
       this.processFile(this.props.viewerFile);
     }
     if (
@@ -46,26 +43,61 @@ export default class Viewer extends React.Component {
    * Unzips the file, creates URLs for all entries, and sets the URLs into state
    * If file is falsy, will revoke all URLs and wipe this.state.imageUrls to force
    * a rerender of the welcome screen.
-   * @param {File} file The file to process for viewing
+   * @param {File} file The file to process for viewing.
    */
   processFile(file) {
+    this.revokeUrls(this.state.imageUrls); // Always free memory first.
     if (file) {
-      this.unzip(this.props.viewerFile).then((blobs) => {
-        let urls = this.createUrls(blobs);
-        this.setState(
-          {
-            imageUrls: urls,
-          },
-          () => {
-            // Wait until here to scroll to top to minimize the "flash"
-            this.viewerRef.current.scrollTop = 0;
+      this.setState(
+        {
+          // Clear images, show loader, and hide error.
+          imageUrls: [],
+          isLoaded: false,
+          error: false,
+        },
+        () => {
+          // Process file (unzip, load image, or show error).
+          const zipRe = /\.(cbz|cbr|zip|rar|7z|7zip)$/gi;
+          const imageRe = /\.(jpe?g|png|gif)$/gi;
+          if (zipRe.test(file.name)) {
+            // Display using zip file.
+            this.unzip(this.props.viewerFile).then((blobs) => {
+              this.setState(
+                {
+                  imageUrls: this.createUrls(blobs),
+                  isLoaded: true,
+                },
+                () => {
+                  this.viewerRef.current.scrollTop = 0;
+                }
+              );
+            });
+          } else if (imageRe.test(file.name)) {
+            // Display single image.
+            this.setState(
+              {
+                imageUrls: this.createUrls([file]),
+                isLoaded: true,
+              },
+              () => {
+                this.viewerRef.current.scrollTop = 0;
+              }
+            );
+          } else {
+            // Display error.
+            this.setState({
+              isLoaded: true,
+              error: true,
+            });
           }
-        );
-      });
+        }
+      );
     } else {
-      this.revokeUrls(this.state.imageUrls);
+      // No file selected. Clear images, hide loader, hide error.
       this.setState({
         imageUrls: [],
+        isLoaded: true,
+        error: false,
       });
     }
   }
@@ -77,7 +109,7 @@ export default class Viewer extends React.Component {
    */
   unzip(zipFile) {
     return jszip.loadAsync(zipFile).then(function (zip) {
-      let re = /(.jpg|.png|.gif|.ps|.jpeg)$/;
+      let re = /\.(jpe?g|png|gif)$/i;
       let imageFilenames = Object.keys(zip.files).filter(function (filename) {
         // Ignore non-image files
         return re.test(filename.toLowerCase());
@@ -139,16 +171,48 @@ export default class Viewer extends React.Component {
   render() {
     return (
       <div ref={this.viewerRef} className="Viewer">
-
-        {/* <Burger toggleSidebar={this.props.toggleSidebar} /> */}
-
-        {this.props.viewerFile ? "" : <Splash />}
-        {this.props.viewerFile ? (
+        {this.props.viewerFile && this.state.isLoaded ? (
           <QuickNav
+            files={this.props.files}
+            viewerFile={this.props.viewerFile}
             prevViewerFile={this.props.prevViewerFile}
             filename={this.props.viewerFile.name}
             nextViewerFile={this.props.nextViewerFile}
           />
+        ) : (
+          ""
+        )}
+
+        {this.state.isLoaded ? (
+          ""
+        ) : (
+          <div className="Viewer-loading">
+            <img src={require("../../assets/loading.gif")} alt="Loading GIF" />
+          </div>
+        )}
+
+        {this.props.viewerFile ? (
+          ""
+        ) : (
+          <div className="Viewer-splash">
+            <img src={require("../../assets/splash.gif")} alt="Welcome GIF" />
+            <div className="Viewer-splash-text">
+              drag 'n drop your .cbz files
+            </div>
+            <div className="Viewer-splash-text-small">
+              or use the Upload button
+            </div>
+          </div>
+        )}
+
+        {this.state.error ? (
+          <div className="Viewer-error">
+            <img src={require("../../assets/error.jpg")} alt="Error image" />
+            <div className="Viewer-error-text">Could not load this file.</div>
+            <div className="Viewer-error-text-small">
+              Are you using an unsupported file extension?
+            </div>
+          </div>
         ) : (
           ""
         )}
@@ -162,8 +226,10 @@ export default class Viewer extends React.Component {
           {this.getImageElems()}
         </div>
 
-        {this.props.viewerFile ? (
+        {this.props.viewerFile && this.state.isLoaded ? (
           <QuickNav
+            files={this.props.files}
+            viewerFile={this.props.viewerFile}
             prevViewerFile={this.props.prevViewerFile}
             filename={this.props.viewerFile.name}
             nextViewerFile={this.props.nextViewerFile}

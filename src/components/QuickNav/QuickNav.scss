@@ -9,5 +9,8 @@
   font-family: $font-family;
   color: $primary;
   background-color: $darker;
-  // background-color: $dark;
+
+  // Ensures Burger menu doesn't cover QuickNav's previous file button
+  // when the open file has a very long name
+  margin: 80px 0;
 }

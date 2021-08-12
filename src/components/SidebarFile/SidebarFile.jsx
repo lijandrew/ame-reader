@@ -40,7 +40,7 @@ export default class SidebarFile extends React.Component {
 
   handleDelete(e) {
     e.stopPropagation();
-    this.props.setViewerFile(); // Reset Viewer
+    this.props.setViewerFile(); // Reset Viewer by calling without giving a File
     this.props.deleteFile(this.props.file);
   }
 
@@ -53,7 +53,7 @@ export default class SidebarFile extends React.Component {
       >
         {this.props.file.name}
         <div className="delete" onClick={this.handleDelete}>
-          <img src={require("../../assets/x.svg")} />
+          <img src={require("../../assets/x.svg")} draggable="false" />
         </div>
       </div>
     );

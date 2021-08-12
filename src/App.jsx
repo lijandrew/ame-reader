@@ -29,11 +29,11 @@ export default class App extends React.Component {
     this.increaseMargin = this.increaseMargin.bind(this);
     this.decreaseMargin = this.decreaseMargin.bind(this);
 
-    this.zoomConstant = 5;
-    this.marginConstant = 5;
+    this.zoomConstant = 10;
+    this.marginConstant = 10;
     this.maxZoom = 100;
     this.minZoom = 10;
-    this.maxMargin = 50;
+    this.maxMargin = 100;
     this.minMargin = 0;
 
     // For Sidebar toggling to work even though Burger menu is child of Viewer for CSS reasons
@@ -45,11 +45,17 @@ export default class App extends React.Component {
    * Adds files to this.state.files
    * TODO: Deal with duplicates
    * @param {File[]} files Array of Files to be added to state variable
+   * @param {Function} callback Callback function (used by SidebarUploader to call revealUploadedFile)
    */
-  addFiles(files) {
-    this.setState((state) => ({
-      files: [...state.files, ...files],
-    }));
+  addFiles(files, callback) {
+    this.setState(
+      (state) => ({
+        files: [...state.files, ...files],
+      }),
+      () => {
+        if (callback) callback();
+      }
+    );
   }
 
   /**
@@ -160,8 +166,15 @@ export default class App extends React.Component {
           decreaseMargin={this.decreaseMargin}
           increaseZoom={this.increaseZoom}
           decreaseZoom={this.decreaseZoom}
+          margin={this.state.margin}
+          zoom={this.state.zoom}
+          maxMargin={this.maxMargin}
+          minMargin={this.minMargin}
+          maxZoom={this.maxZoom}
+          minZoom={this.minZoom}
         />
         <Viewer
+          files={this.state.files}
           viewerFile={this.state.viewerFile}
           nextViewerFile={this.nextViewerFile}
           prevViewerFile={this.prevViewerFile}

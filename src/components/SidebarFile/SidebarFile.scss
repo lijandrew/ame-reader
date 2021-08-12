@@ -2,7 +2,6 @@
 
 .SidebarFile {
   padding: 10px;
-  // TODO: Find better background-color for files?
   background-color: $dark;
   color: $primary;
   font-family: $font-family;
@@ -12,16 +11,11 @@
   user-select: none;
   cursor: pointer;
   transition: background-color 200ms ease-out;
-  &:hover {
-    background-color: $primary;
-    color: $darker;
-    .delete img {
-      filter: grayscale(100%) brightness(0);
-    }
-  }
   &:not(:nth-child(1)) {
     border-top: 1px solid $primary;
   }
+  white-space: pre-line;
+  // white-space: pre-wrap;
 }
 
 .delete {
@@ -32,9 +26,6 @@
     transition: transform 200ms ease-out;
     width: 15px;
   }
-  &:hover img {
-    transform: rotate(90deg);
-  }
 }
 
 .SidebarFile.active {
@@ -42,5 +33,18 @@
   color: $darker;
   .delete img {
     filter: grayscale(100%) brightness(0);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .SidebarFile:hover {
+    background-color: $primary;
+    color: $darker;
+    .delete img {
+      filter: grayscale(100%) brightness(0);
+    }
+  }
+  .delete:hover img {
+    transform: rotate(90deg);
   }
 }

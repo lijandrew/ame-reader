@@ -5,16 +5,28 @@
 .Sidebar {
   z-index: 2;
   position: relative;
-  background-color: $dark;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   height: 100%;
   max-height: 100%;
+
+  // -84px to ensure there is always room for the Burger
+  // Required b/c Burger is position: absolute
+  max-width: calc(100% - 85px);
+}
+
+.Sidebar-Burger-wrapper {
+  position: relative;
 }
 
 .Sidebar-content {
-  // If there are so many files that a scrollbar is needed
-  overflow-y: auto;
+  background-color: $dark;
+
+  // Make bottom vertical child scrollable
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
 }
 
 .Sidebar-content.hidden {

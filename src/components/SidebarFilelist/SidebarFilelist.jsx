@@ -8,7 +8,17 @@ export default class SidebarFilelist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
     this.getFileElems = this.getFileElems.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
+
+    this.sidebarFilelistRef = React.createRef();
+  }
+
+  scrollToBottom() {
+    console.log("scrollToBottom called");
+    this.sidebarFilelistRef.current.scrollTop =
+      this.sidebarFilelistRef.current.scrollHeight;
   }
 
   getFileElems() {
@@ -28,6 +38,10 @@ export default class SidebarFilelist extends React.Component {
   }
 
   render() {
-    return <div className="SidebarFilelist">{this.getFileElems()}</div>;
+    return (
+      <div className="SidebarFilelist" ref={this.sidebarFilelistRef}>
+        {this.getFileElems()}
+      </div>
+    );
   }
 }

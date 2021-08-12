@@ -1,25 +1,25 @@
 @import "../../variables.scss";
 
 .Burger {
+  position: absolute;
+  left: 10px;
+  top: 10px;
   padding: 20px;
   border: none;
   background-color: $dark;
   border-radius: 0;
   cursor: pointer;
   user-select: none;
-
-  position: absolute;
-  top: 10px;
-  right: -10px;
-  transform: translate(100%, 0);
   img {
     transition: transform 200ms ease-out;
   }
 }
 
-.Burger:hover {
-  background-color: $primary;
-  img {
-    filter: brightness(0);
+@media (hover: hover) and (pointer: fine) {
+  .Burger:hover {
+    background-color: $primary;
+    img {
+      filter: brightness(0);
+    }
   }
 }

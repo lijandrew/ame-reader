@@ -13,13 +13,25 @@
   align-items: center;
   padding: 15px 10px;
   user-select: none;
-  &:hover img {
+}
+
+.svg-button img {
+  user-select: none;
+}
+
+.svg-button.disabled {
+  filter: grayscale(100%) brightness(50%);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .svg-button:hover img {
     filter: brightness(150%);
   }
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 350px) {
   .svg-button {
-    padding: 15px 5px;
+    padding: 15px 7px;
   }
 }

@@ -15,6 +15,7 @@ export default class Burger extends React.Component {
           src={require("../../assets/burger.svg")}
           title="Toggle sidebar"
           alt="Hamburger menu icon"
+          draggable="false"
         />
       </div>
     );
