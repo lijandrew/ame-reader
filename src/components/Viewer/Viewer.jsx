@@ -187,7 +187,7 @@ export default class Viewer extends React.Component {
           ""
         ) : (
           <div className="Viewer-loading">
-            <img src={require("../../assets/loading.gif")} alt="Loading GIF" />
+            <img src={require("../../assets/loading.gif")} alt="Loading GIF" draggable="false" />
           </div>
         )}
 
@@ -195,7 +195,7 @@ export default class Viewer extends React.Component {
           ""
         ) : (
           <div className="Viewer-splash">
-            <img src={require("../../assets/splash.gif")} alt="Welcome GIF" />
+            <img src={require("../../assets/splash.gif")} alt="Welcome GIF" draggable="false" />
             <div className="Viewer-splash-text">
               drag 'n drop your .cbz files
             </div>
@@ -207,7 +207,7 @@ export default class Viewer extends React.Component {
 
         {this.state.error ? (
           <div className="Viewer-error">
-            <img src={require("../../assets/error.jpg")} alt="Error image" />
+            <img src={require("../../assets/error.jpg")} alt="Error image" draggable="false" />
             <div className="Viewer-error-text">Could not load this file.</div>
             <div className="Viewer-error-text-small">
               Are you using an unsupported file extension?
