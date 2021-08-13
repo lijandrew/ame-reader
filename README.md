@@ -9,7 +9,7 @@ A browser-based .cbz reader
 
 [How to use](#how-to-use)  
 [Latest changes](#latest-changes)  
-[Planned](#planned)  
+[Plans](#plans)  
 [Screenshots](#screenshots)
 
 ## **How to use**
@@ -29,7 +29,7 @@ A browser-based .cbz reader
 - Drag 'n drop file upload improvements
 - Production build
 
-## **Planned**
+## **Plans**
 
 - PWA app ("installable" on Edge & Chrome)
 - File loading bar
