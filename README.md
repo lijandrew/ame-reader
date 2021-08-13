@@ -4,7 +4,14 @@
 
 https://lijandrew.github.io/ame/
 
-## &rarr; **How to use**
+## &rarr; **Table of Contents**
+
+[How to use](#how-to-use)  
+[Latest changes](#latest-changes)  
+[Planned](#planned)  
+[Screenshots](#screenshots)
+
+## &rarr; **How to use** <a id="how-to-use"></a>
 
 - Use the **Upload** button or **drag 'n drop** files into the web app. Supported file extensions: _.cbz_, _.cbr_, _.zip_, _.rar_, _.7z_, _.7zip_, _.jpg_, _.jpeg_, _.png_, _.gif_
 - Uploaded files will appear in the left sidebar. Click one to display its contents in the viewer
@@ -12,7 +19,7 @@ https://lijandrew.github.io/ame/
 - There are also "quick navigation" buttons at the top and bottom of the viewer for convenience
 - Click the hamburger menu to toggle the sidebar
 
-## &rarr; **Latest Changes**
+## &rarr; **Latest changes** <a id="latest-changes"></a>
 
 - "Loading" and "error" splash images
 - Fixed file list scrolling
@@ -21,13 +28,13 @@ https://lijandrew.github.io/ame/
 - Drag 'n drop file upload improvements
 - Production build
 
-## &rarr; **Planned**
+## &rarr; **Planned** <a id="planned"></a>
 
 - PWA app ("installable" on Edge & Chrome)
 - File loading bar
 - ElectronJS desktop app
 
-## &rarr; **Screenshots**
+## &rarr; **Screenshots** <a id="screenshots"></a>
 
 ![Demo screenshot 1](./screenshots/1.png)
 
