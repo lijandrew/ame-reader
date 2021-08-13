@@ -1,23 +1,23 @@
 {
   "name": "ame",
   "version": "1.0.0",
-  "description": "Web-based manga and comic reader",
+  "description": "Browser-based manga & comic reader",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --open",
-    "build": "webpack"
+    "start": "webpack serve --open --config ./webpack.dev.js",
+    "build-dev": "webpack --config ./webpack.dev.js",
+    "build": "webpack --config ./webpack.prod.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lijandrew/yuki.git"
+    "url": "git+https://github.com/lijandrew/ame.git"
   },
-  "keywords": [],
   "author": "Andrew Li",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lijandrew/yuki/issues"
+    "url": "https://github.com/lijandrew/ame/issues"
   },
-  "homepage": "https://github.com/lijandrew/yuki#readme",
+  "homepage": "https://github.com/lijandrew/ame#readme",
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
