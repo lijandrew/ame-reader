@@ -19,6 +19,7 @@ https://lijandrew.github.io/ame/
 - Greatly improved usability for narrow devices
 - Buttons now gray out when they are supposed to
 - Drag 'n drop file upload improvements
+- Production build
 
 ## &rarr; **Planned**
 
