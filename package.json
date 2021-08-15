@@ -1,5 +1,5 @@
 {
-  "name": "ame-reader",
+  "name": "ame",
   "version": "1.0.0",
   "description": "Browser-based manga & comic reader",
   "main": "index.js",
