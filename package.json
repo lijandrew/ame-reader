@@ -1,5 +1,5 @@
 {
-  "name": "ame",
+  "name": "ame-reader",
   "version": "1.0.0",
   "description": "Browser-based manga & comic reader",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lijandrew/ame.git"
+    "url": "git+https://github.com/lijandrew/ame-reader.git"
   },
   "author": "Andrew Li",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lijandrew/ame/issues"
+    "url": "https://github.com/lijandrew/ame-reader/issues"
   },
-  "homepage": "https://github.com/lijandrew/ame#readme",
+  "homepage": "https://github.com/lijandrew/ame-reader#readme",
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
