@@ -3,7 +3,7 @@
 # **Ame**
 
 A browser-based .cbz reader  
-&rarr; https://lijandrew.github.io/ame/
+&rarr; https://lijandrew.github.io/ame-reader/
 
 ## **Table of Contents**
 
