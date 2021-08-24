@@ -14,7 +14,8 @@ A browser-based .cbz reader
 
 ## **How to use**
 
-- Use the **Upload** button or **drag 'n drop** files into the web app. Supported file extensions: _.cbz_, _.cbr_, _.zip_, _.rar_, _.7z_, _.7zip_, _.jpg_, _.jpeg_, _.png_, _.gif_
+- Use the **Upload** button or **drag 'n drop** files into the web app.
+- Supported file extensions: _.cbz_, _.cbr_, _.zip_, _.rar_, _.7z_, _.7zip_, _.jpg_, _.jpeg_, _.png_, _.gif_
 - Uploaded files will appear in the left sidebar. Click one to display its contents in the viewer
 - The sidebar has controls for zoom, margin, and previous/next file navigation
 - There are also "quick navigation" buttons at the top and bottom of the viewer for convenience
