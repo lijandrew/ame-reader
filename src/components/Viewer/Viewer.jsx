@@ -113,7 +113,7 @@ export default class Viewer extends React.Component {
       let imageFilenames = Object.keys(zip.files).filter(function (filename) {
         // Ignore non-image files
         return re.test(filename.toLowerCase());
-      });
+      }).sort((a, b) => a.localeCompare(b));
 
       let blobPromises = [];
       for (let filename of imageFilenames) {
