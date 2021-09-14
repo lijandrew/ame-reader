@@ -13,5 +13,3 @@ if ("serviceworker" in navigator) {
   });
 }
 */
-
-module.hot.accept();
