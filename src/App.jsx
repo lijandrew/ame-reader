@@ -15,20 +15,6 @@ export default class App extends React.Component {
       margin: 5,
     };
 
-    this.addFiles = this.addFiles.bind(this);
-    this.deleteFile = this.deleteFile.bind(this);
-
-    this.setViewerFile = this.setViewerFile.bind(this);
-    this.nextViewerFile = this.nextViewerFile.bind(this);
-    this.prevViewerFile = this.prevViewerFile.bind(this);
-
-    this.setZoom = this.setZoom.bind(this);
-    this.setMargin = this.setMargin.bind(this);
-    this.increaseZoom = this.increaseZoom.bind(this);
-    this.decreaseZoom = this.decreaseZoom.bind(this);
-    this.increaseMargin = this.increaseMargin.bind(this);
-    this.decreaseMargin = this.decreaseMargin.bind(this);
-
     this.zoomConstant = 10;
     this.marginConstant = 10;
     this.maxZoom = 100;
@@ -38,7 +24,6 @@ export default class App extends React.Component {
 
     // For Sidebar toggling to work even though Burger menu is child of Viewer for CSS reasons
     this.sidebarRef = React.createRef();
-    this.toggleSidebar = this.toggleSidebar.bind(this);
   }
 
   /**
@@ -47,7 +32,7 @@ export default class App extends React.Component {
    * @param {File[]} files Array of Files to be added to state variable
    * @param {Function} callback Callback function (used by SidebarUploader to call revealUploadedFile)
    */
-  addFiles(files, callback) {
+  addFiles = (files, callback) => {
     this.setState(
       (state) => ({
         files: [...state.files, ...files],
@@ -56,13 +41,13 @@ export default class App extends React.Component {
         if (callback) callback();
       }
     );
-  }
+  };
 
   /**
    * Deletes passed File from the file list
    * @param {File} file File to be deleted from file list
    */
-  deleteFile(file) {
+  deleteFile = (file) => {
     this.setState((state) => {
       let filesCopy = [...state.files];
       filesCopy.splice(filesCopy.indexOf(file), 1);
@@ -70,23 +55,23 @@ export default class App extends React.Component {
         files: filesCopy,
       };
     });
-  }
+  };
 
   /**
    * Sets which file Viewer should display
    * Passed all the way down to SidebarFile to use in its onclick
    * @param {File} file The file to display in Viewer
    */
-  setViewerFile(file) {
+  setViewerFile = (file) => {
     this.setState({
       viewerFile: file,
     });
-  }
+  };
 
   /**
    * Sets viewerFile to the next file in the array
    */
-  nextViewerFile() {
+  nextViewerFile = () => {
     let currentIndex = this.state.files.indexOf(this.state.viewerFile);
     if (currentIndex === -1) {
       return;
@@ -95,12 +80,12 @@ export default class App extends React.Component {
       this.setViewerFile(this.state.files[currentIndex + 1]);
     }
     // If out of bounds, do nothing
-  }
+  };
 
   /**
    * Sets viewerFile to the previous file in the array
    */
-  prevViewerFile() {
+  prevViewerFile = () => {
     let currentIndex = this.state.files.indexOf(this.state.viewerFile);
     if (currentIndex === -1) {
       return;
@@ -109,45 +94,45 @@ export default class App extends React.Component {
       this.setViewerFile(this.state.files[currentIndex - 1]);
     }
     // If out of bounds, do nothing
-  }
+  };
 
-  setZoom(newZoom) {
+  setZoom = (newZoom) => {
     this.setState({
       zoom: newZoom,
     });
-  }
+  };
 
-  setMargin(newMargin) {
+  setMargin = (newMargin) => {
     this.setState({
       margin: newMargin,
     });
-  }
+  };
 
-  increaseZoom() {
+  increaseZoom = () => {
     this.setZoom(Math.min(this.maxZoom, this.state.zoom + this.zoomConstant));
-  }
+  };
 
-  decreaseZoom() {
+  decreaseZoom = () => {
     console.log("decreaseZoom");
     this.setZoom(Math.max(this.minZoom, this.state.zoom - this.zoomConstant));
-  }
+  };
 
-  increaseMargin() {
+  increaseMargin = () => {
     this.setMargin(
       Math.min(this.maxMargin, this.state.margin + this.marginConstant)
     );
-  }
+  };
 
-  decreaseMargin() {
+  decreaseMargin = () => {
     console.log("decreaseMargin");
     this.setMargin(
       Math.max(this.minMargin, this.state.margin - this.marginConstant)
     );
-  }
+  };
 
-  toggleSidebar() {
+  toggleSidebar = () => {
     this.sidebarRef.current.toggleSidebar();
-  }
+  };
 
   render() {
     return (

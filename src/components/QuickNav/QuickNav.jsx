@@ -5,25 +5,22 @@ import "./QuickNav.scss";
 export default class QuickNav extends React.Component {
   constructor(props) {
     super(props);
-
-    this.canPrevViewerFile = this.canPrevViewerFile.bind(this);
-    this.canNextViewerFile = this.canNextViewerFile.bind(this);
   }
 
-  canPrevViewerFile() {
+  canPrevViewerFile = () => {
     return (
       this.props.viewerFile &&
       this.props.files.indexOf(this.props.viewerFile) !== 0
     );
-  }
+  };
 
-  canNextViewerFile() {
+  canNextViewerFile = () => {
     return (
       this.props.viewerFile &&
       this.props.files.indexOf(this.props.viewerFile) !==
-        this.props.files.length - 1
+      this.props.files.length - 1
     );
-  }
+  };
 
   render() {
     return (

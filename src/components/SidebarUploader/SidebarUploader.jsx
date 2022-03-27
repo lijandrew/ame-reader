@@ -5,19 +5,12 @@ import "./SidebarUploader.scss";
 export default class SidebarUploader extends React.Component {
   constructor(props) {
     super(props);
-    this.uploadFiles = this.uploadFiles.bind(this);
-    this.handleFileInputChange = this.handleFileInputChange.bind(this);
-    this.handlePickerInputClick = this.handlePickerInputClick.bind(this);
-    this.handlePickerButtonClick = this.handlePickerButtonClick.bind(this);
-    this.pickerInput = null;
-    this.pickerButton = null;
-
-    this.pickerInputRef = React.createRef();
-    this.pickerButtonRef = React.createRef();
-    this.dropperRef = React.createRef();
     this.pickerInput = null;
     this.pickerButton = null;
     this.dropper = null;
+    this.pickerInputRef = React.createRef();
+    this.pickerButtonRef = React.createRef();
+    this.dropperRef = React.createRef();
   }
 
   componentDidMount() {
@@ -64,29 +57,29 @@ export default class SidebarUploader extends React.Component {
     dropper.addEventListener("drop", handleDrop);
   }
 
-  handleFileInputChange(event) {
+  handleFileInputChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       this.uploadFiles(event.target.files);
     }
-  }
+  };
 
   /**
    * Sorts files by name, then calls this.props.addFiles on them
    * @param {File[]} files Files to add
    */
-  uploadFiles(files) {
+  uploadFiles = (files) => {
     files = Array.from(files); // In case files passed in was directly from event object
     files.sort((a, b) => (a.name > b.name ? 1 : -1)); // Sort by filename
     this.props.addFiles(files, this.props.revealUploadedFiles);
-  }
+  };
 
-  handlePickerInputClick() {
+  handlePickerInputClick = () => {
     this.pickerInput.value = null;
-  }
+  };
 
-  handlePickerButtonClick() {
+  handlePickerButtonClick = () => {
     this.pickerInput.click();
-  }
+  };
 
   render() {
     return (

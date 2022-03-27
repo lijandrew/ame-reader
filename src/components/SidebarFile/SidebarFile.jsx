@@ -8,9 +8,6 @@ export default class SidebarFile extends React.Component {
     this.state = {
       active: false,
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleAuxClick = this.handleAuxClick.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
     this.elemRef = React.createRef();
   }
 
@@ -28,21 +25,21 @@ export default class SidebarFile extends React.Component {
     }
   }
 
-  handleClick(e) {
+  handleClick = (e) => {
     this.props.setViewerFile(this.props.file);
-  }
+  };
 
-  handleAuxClick(e) {
+  handleAuxClick = (e) => {
     if (e.button === 1) {
       this.handleDelete(e);
     }
-  }
+  };
 
-  handleDelete(e) {
+  handleDelete = (e) => {
     e.stopPropagation();
     this.props.setViewerFile(); // Reset Viewer by calling without giving a File
     this.props.deleteFile(this.props.file);
-  }
+  };
 
   render() {
     return (

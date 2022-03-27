@@ -7,21 +7,16 @@ import "./SidebarFilelist.scss";
 export default class SidebarFilelist extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-
-    this.getFileElems = this.getFileElems.bind(this);
-    this.scrollToBottom = this.scrollToBottom.bind(this);
-
     this.sidebarFilelistRef = React.createRef();
   }
 
-  scrollToBottom() {
+  scrollToBottom = () => {
     console.log("scrollToBottom called");
     this.sidebarFilelistRef.current.scrollTop =
       this.sidebarFilelistRef.current.scrollHeight;
-  }
+  };
 
-  getFileElems() {
+  getFileElems = () => {
     let fileElems = [];
     for (let i = 0; i < this.props.files.length; i++) {
       fileElems.push(
@@ -35,7 +30,7 @@ export default class SidebarFilelist extends React.Component {
       );
     }
     return fileElems;
-  }
+  };
 
   render() {
     return (

@@ -12,22 +12,15 @@ export default class Sidebar extends React.Component {
     this.state = {
       isVisible: true,
     };
-    this.revealUploadedFiles = this.revealUploadedFiles.bind(this);
-    this.toggleSidebar = this.toggleSidebar.bind(this);
-
     this.sidebarFilelistRef = React.createRef();
     this.toolbarRef = React.createRef();
     this.sidebarUploaderRef = React.createRef();
   }
 
-  componentDidMount() {
-    // let toolbarHeight = this.toolbarRef.current.
-  }
-
   /**
    * Opens Sidebar and scrolls Filelist down to bottom to show newly-uploaded files.
    */
-  revealUploadedFiles() {
+  revealUploadedFiles = () => {
     this.setState(
       {
         isVisible: true,
@@ -36,13 +29,13 @@ export default class Sidebar extends React.Component {
         this.sidebarFilelistRef.current.scrollToBottom();
       }
     );
-  }
+  };
 
-  toggleSidebar() {
+  toggleSidebar = () => {
     this.setState((state) => ({
       isVisible: !state.isVisible,
     }));
-  }
+  };
 
   render() {
     return (

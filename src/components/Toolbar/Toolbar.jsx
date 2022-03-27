@@ -5,45 +5,38 @@ import "./Toolbar.scss";
 export default class Toolbar extends React.Component {
   constructor(props) {
     super(props);
-
-    this.canDecreaseMargin = this.canDecreaseMargin.bind(this);
-    this.canIncreaseMargin = this.canIncreaseMargin.bind(this);
-    this.canDecreaseZoom = this.canDecreaseZoom.bind(this);
-    this.canIncreaseZoom = this.canIncreaseZoom.bind(this);
-    this.canPrevViewerFile = this.canPrevViewerFile.bind(this);
-    this.canNextViewerFile = this.canNextViewerFile.bind(this);
   }
 
-  canDecreaseMargin() {
+  canDecreaseMargin = () => {
     return this.props.viewerFile && this.props.margin > this.props.minMargin;
-  }
+  };
 
-  canIncreaseMargin() {
+  canIncreaseMargin = () => {
     return this.props.viewerFile && this.props.margin < this.props.maxMargin;
-  }
+  };
 
-  canDecreaseZoom() {
+  canDecreaseZoom = () => {
     return this.props.viewerFile && this.props.zoom > this.props.minZoom;
-  }
+  };
 
-  canIncreaseZoom() {
+  canIncreaseZoom = () => {
     return this.props.viewerFile && this.props.zoom < this.props.maxZoom;
-  }
+  };
 
-  canPrevViewerFile() {
+  canPrevViewerFile = () => {
     return (
       this.props.viewerFile &&
       this.props.files.indexOf(this.props.viewerFile) !== 0
     );
-  }
+  };
 
-  canNextViewerFile() {
+  canNextViewerFile = () => {
     return (
       this.props.viewerFile &&
       this.props.files.indexOf(this.props.viewerFile) !==
-        this.props.files.length - 1
+      this.props.files.length - 1
     );
-  }
+  };
 
   render() {
     return (

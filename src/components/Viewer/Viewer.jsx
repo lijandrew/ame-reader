@@ -13,12 +13,6 @@ export default class Viewer extends React.Component {
       isLoaded: false, // Show loading animation?
       error: false, // Show error?
     };
-    this.revokeUrls = this.revokeUrls.bind(this);
-    this.createUrls = this.createUrls.bind(this);
-    this.processFile = this.processFile.bind(this);
-    this.unzip = this.unzip.bind(this);
-    this.getImageElems = this.getImageElems.bind(this);
-
     this.viewerRef = React.createRef();
   }
 
@@ -45,7 +39,7 @@ export default class Viewer extends React.Component {
    * a rerender of the welcome screen.
    * @param {File} file The file to process for viewing.
    */
-  processFile(file) {
+  processFile = (file) => {
     this.revokeUrls(this.state.imageUrls); // Always free memory first.
     if (file) {
       this.setState(
@@ -100,14 +94,14 @@ export default class Viewer extends React.Component {
         error: false,
       });
     }
-  }
+  };
 
   /**
    * Returns an array of Promises of Blobs of each zip entry
    * @param {File} zipFile The ZIP file to unzip
    * @returns {Promise} Promise of array of Blobs
    */
-  unzip(zipFile) {
+  unzip = (zipFile) => {
     return jszip.loadAsync(zipFile).then(function (zip) {
       let re = /\.(jpe?g|png|gif)$/i;
       let imageFilenames = Object.keys(zip.files).filter(function (filename) {
@@ -122,35 +116,35 @@ export default class Viewer extends React.Component {
       }
       return Promise.all(blobPromises);
     });
-  }
+  };
 
   /**
    * Returns an array of object URLs for passed array of files
    * @param {File[]} files Array of files to create object URLs for
    */
-  createUrls(files) {
+  createUrls = (files) => {
     let urls = [];
     for (let file of files) {
       urls.push(URL.createObjectURL(file));
     }
     return urls;
-  }
+  };
 
   /**
    * Revokes all URLs in the passed array, freeing memory
    * @param {DOMString[]} urls Array of DOMString URLs (of images, in this case)
    */
-  revokeUrls(urls) {
+  revokeUrls = (urls) => {
     for (let url of urls) {
       URL.revokeObjectURL(url);
     }
-  }
+  };
 
   /**
    * Creates and returns an array of <img> files with src attributes linked
    * @returns Array of <img>
    */
-  getImageElems() {
+  getImageElems = () => {
     let imageElemArr = [];
     for (let i = 0; i < this.state.imageUrls.length; i++) {
       let imageUrl = this.state.imageUrls[i];
@@ -166,7 +160,7 @@ export default class Viewer extends React.Component {
       );
     }
     return imageElemArr;
-  }
+  };
 
   render() {
     return (
